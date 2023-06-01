@@ -1,14 +1,14 @@
-import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Text} from 'react-native';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {NavigationContainer} from '@react-navigation/native';
+import {StyleSheet} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import AuthStackNavigator from './navigation/auth/auth.navigator';
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </SafeAreaView>
+      <NavigationContainer>
+        <AuthStackNavigator />
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }

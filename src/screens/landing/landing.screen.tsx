@@ -1,19 +1,19 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import AppButton from '../../components/app-button/app-button';
+import ButtonGroup from '../../components/button-group/button-group';
+import ScreenView from '../../components/screen-view/screen-view';
 
-const LandingScreen = () => {
+const LandingScreen = ({navigation}) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>LandingScreen</Text>
-    </SafeAreaView>
+    <ScreenView>
+      <ButtonGroup>
+        <AppButton
+          label="Sign in with Phone Number"
+          onPress={() => navigation.navigate('PhoneNumber')}
+        />
+      </ButtonGroup>
+    </ScreenView>
   );
 };
 
 export default LandingScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

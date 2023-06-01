@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import ButtonGroup from '../../components/button-group/button-group';
 import AppButton from '../../components/app-button/app-button';
-import ScreenView from '../../components/screen-view/screen-view';
 import AppInput from '../../components/app-input/app-input';
+import ButtonGroup from '../../components/button-group/button-group';
+import ScreenView from '../../components/screen-view/screen-view';
 import Spacer from '../../components/spacer/spacer';
 
 const PhoneNumberScreen = ({navigation}) => {

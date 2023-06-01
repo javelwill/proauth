@@ -1,19 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import ButtonGroup from '../../components/button-group/button-group';
+import AppButton from '../../components/app-button/app-button';
+import ScreenView from '../../components/screen-view/screen-view';
+import AppInput from '../../components/app-input/app-input';
+import Spacer from '../../components/spacer/spacer';
 
-const PhoneNumberScreen = () => {
+const PhoneNumberScreen = ({navigation}) => {
+  const [phoneNumber, setPhoneNumber] = useState('');
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>PhoneNumberScreen</Text>
-    </SafeAreaView>
+    <ScreenView>
+      <Spacer />
+      <AppInput
+        placeholder="+1 123 456 7890"
+        value={phoneNumber}
+        onChangeText={(text) => setPhoneNumber(text)}
+      />
+      <ButtonGroup>
+        <AppButton
+          label="Go Back"
+          onPress={() => navigation.goBack()}
+          backgroundColor="white"
+          borderColor="black"
+          color="black"
+        />
+        <AppButton
+          label="Next"
+          onPress={() =>
+            navigation.navigate('VerificationCode', {
+              phoneNumber,
+            })
+          }
+        />
+      </ButtonGroup>
+    </ScreenView>
   );
 };
 
 export default PhoneNumberScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

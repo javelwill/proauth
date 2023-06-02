@@ -1,6 +1,7 @@
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import AuthStackNavigator from './auth/auth.navigator';
+import MainStackNavigator from './main/main.navigator';
 
 const theme = {
   ...DefaultTheme,
@@ -13,7 +14,7 @@ const theme = {
 const Navigation = () => {
   return (
     <NavigationContainer theme={theme}>
-      <AuthStackNavigator />
+      {true ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };

@@ -3,8 +3,9 @@ import React from 'react';
 import LandingScreen from '../../screens/landing/landing.screen';
 import PhoneNumberScreen from '../../screens/phone-number/phone-number.screen';
 import VerificationCodeScreen from '../../screens/verification-code/verification-code.screen';
+import {AuthStackNavigatorParamList} from './auth.types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<AuthStackNavigatorParamList>();
 
 const AuthStackNavigator = () => {
   return (

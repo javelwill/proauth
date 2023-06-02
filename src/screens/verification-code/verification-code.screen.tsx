@@ -5,8 +5,12 @@ import ButtonGroup from '../../components/button-group/button-group';
 import ScreenView from '../../components/screen-view/screen-view';
 import Spacer from '../../components/spacer/spacer';
 import AppText from '../../components/app-text/app-text';
+import {AuthStackNavigatorScreenProps} from '../../navigation/auth/auth.types';
 
-const VerificationCodeScreen = ({navigation, route}) => {
+const VerificationCodeScreen = ({
+  navigation,
+  route,
+}: AuthStackNavigatorScreenProps<'VerificationCode'>) => {
   const [verificationCode, setVerificationCode] = useState('');
   const phoneNumber = route.params.phoneNumber;
   return (

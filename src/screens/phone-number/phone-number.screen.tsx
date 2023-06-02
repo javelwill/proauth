@@ -4,8 +4,11 @@ import AppInput from '../../components/app-input/app-input';
 import ButtonGroup from '../../components/button-group/button-group';
 import ScreenView from '../../components/screen-view/screen-view';
 import Spacer from '../../components/spacer/spacer';
+import {AuthStackNavigatorScreenProps} from '../../navigation/auth/auth.types';
 
-const PhoneNumberScreen = ({navigation}) => {
+const PhoneNumberScreen = ({
+  navigation,
+}: AuthStackNavigatorScreenProps<'PhoneNumber'>) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   return (
     <ScreenView>

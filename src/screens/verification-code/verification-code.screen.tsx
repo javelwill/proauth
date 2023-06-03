@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator} from 'react-native';
 import AppButton from '../../components/app-button/app-button';
 import AppInput from '../../components/app-input/app-input';
+import AppText from '../../components/app-text/app-text';
 import ButtonGroup from '../../components/button-group/button-group';
 import ScreenView from '../../components/screen-view/screen-view';
 import Spacer from '../../components/spacer/spacer';
-import AppText from '../../components/app-text/app-text';
 import {AuthStackNavigatorScreenProps} from '../../navigation/auth/auth.types';
+import {useAuthContext} from '../../services/auth/auth.context';
 
 const VerificationCodeScreen = ({
   navigation,
@@ -13,6 +15,12 @@ const VerificationCodeScreen = ({
 }: AuthStackNavigatorScreenProps<'VerificationCode'>) => {
   const [verificationCode, setVerificationCode] = useState('');
   const phoneNumber = route.params.phoneNumber;
+  const {signInWithPhone, confirmCode, error, loading} = useAuthContext();
+
+  useEffect(() => {
+    signInWithPhone(phoneNumber);
+  });
+
   return (
     <ScreenView>
       <Spacer />
@@ -32,7 +40,14 @@ const VerificationCodeScreen = ({
           borderColor="black"
           color="black"
         />
-        <AppButton label="Submit" onPress={() => null} />
+        {loading ? (
+          <ActivityIndicator size={'large'} />
+        ) : (
+          <AppButton
+            label="Submit"
+            onPress={() => confirmCode(verificationCode)}
+          />
+        )}
       </ButtonGroup>
     </ScreenView>
   );

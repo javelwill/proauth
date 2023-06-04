@@ -18,8 +18,9 @@ const VerificationCodeScreen = ({
   const {signInWithPhone, confirmCode, error, loading} = useAuthContext();
 
   useEffect(() => {
+    console.log('VerificationCodeScreen');
     signInWithPhone(phoneNumber);
-  });
+  }, []);
 
   return (
     <ScreenView>

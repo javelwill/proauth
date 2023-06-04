@@ -1,4 +1,6 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {Alert} from 'react-native';
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -23,21 +25,68 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 const AuthProvider = ({children}: AuthProviderProps) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [user, setUser] = useState<null | FirebaseAuthTypes.User>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>(null);
+
+  const [confirm, setConfirm] =
+    useState<null | FirebaseAuthTypes.ConfirmationResult>(null);
 
   const signInWithPhone = async (phoneNumber: string) => {
-    return null;
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      setConfirm(confirmation);
+    } catch (error: any) {
+      console.log(error);
+      switch (error.code) {
+        case 'auth/invalid-phone-number':
+          Alert.alert(
+            'Error',
+            'The provided phone number is not valid. Please check and try again.'
+          );
+          break;
+        default:
+          Alert.alert(
+            'Error',
+            'An unexpected error occurred. Please try again later.'
+          );
+      }
+    }
   };
 
   const confirmCode = async (verificationCode: string) => {
-    return null;
+    try {
+      await confirm?.confirm(verificationCode);
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/invalid-phone-number':
+          Alert.alert(
+            'Error',
+            'The provided verification code is not valid. Please check and try again.'
+          );
+          break;
+        default:
+          Alert.alert(
+            'Error',
+            'An unexpected error occurred. Please try again later.'
+          );
+      }
+    }
   };
 
   const signOut = async () => {
-    return null;
+    await auth().signOut();
   };
+
+  const onAuthStateChanged = (user: FirebaseAuthTypes.User | null) => {
+    setUser(user);
+    if (loading) setLoading(false);
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   return (
     <AuthContext.Provider
